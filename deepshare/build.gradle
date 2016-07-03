@@ -1,0 +1,79 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.1"
+
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 21
+        versionCode 1
+        versionName "2.0.9"
+    }
+    publishNonDefault true
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile 'com.squareup.okhttp:mockwebserver:2.5.0'
+    compile 'com.google.code.gson:gson:2.2.4'
+}
+
+task clearRelease(type: Delete) {
+    delete "build/deepshare_android_v" + "$android.defaultConfig.versionName"
+}
+
+task clearJar(type: Delete) {
+    delete "build/outputs/"
+}
+
+task copyDemo(type: Copy) {
+    from('../demo-template')
+    into("build/deepshare_android_v" + "$android.defaultConfig.versionName" + "/demo")
+}
+
+task copyDemoSrc(type: Copy) {
+    from('../sample/src/main')
+    into("build/deepshare_android_v" + "$android.defaultConfig.versionName" + "/demo/app/src/main")
+}
+
+task copyDemoRes(type: Copy) {
+    from('../sample/src/res')
+    into("build/deepshare_android_v" + "$android.defaultConfig.versionName" + "/demo/app/src/res")
+}
+
+task copyJar(type: Copy) {
+    from('build/intermediates/bundles/release/')
+    into('build/deepshare_android_v' + "$android.defaultConfig.versionName" + '/demo/app/libs/')
+    include('classes.jar')
+    rename ('classes.jar', "deepshare-v" + "$android.defaultConfig.versionName" + ".jar")
+}
+
+task makeJar(type: Copy) {
+    from('build/intermediates/bundles/release/')
+    into('build/outputs/')
+    include('classes.jar')
+    rename ('classes.jar', "deepshare-v" + "$android.defaultConfig.versionName" + ".jar")
+}
+
+task makeRelease(type: Copy) {
+    from('build/intermediates/bundles/release/')
+    into('build/deepshare_android_v' + "$android.defaultConfig.versionName" + '/lib')
+    include('classes.jar')
+    rename ('classes.jar', "deepshare-v" + "$android.defaultConfig.versionName" + ".jar")
+}
+
+makeJar.dependsOn(clearJar, build)
+makeRelease.dependsOn(clearRelease, build, copyDemo, copyDemoSrc, copyDemoRes, copyJar)

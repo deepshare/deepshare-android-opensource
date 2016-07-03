@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Deep Share Sample</string>
+    <string name="action_settings">Settings</string>
+    <string name="link_received">Received Init Params as below</string>
+</resources>
