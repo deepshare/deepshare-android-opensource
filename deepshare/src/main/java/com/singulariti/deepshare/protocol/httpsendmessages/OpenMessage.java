@@ -38,10 +38,16 @@ public class OpenMessage extends ServerHttpSendJsonMessage {
             openPost.put("click_id", text);;
         }
 
-        text = config.getWorkerId();
-        config.setWorkerId("");
+        text = config.getDeepLinkId();
+        config.setDeepLinkId("");
         if (!TextUtils.isEmpty(text)) {
-            openPost.put("worker_id", text);;
+            openPost.put("deeplink_id", text);
+            ;
+        }
+
+        text = config.getScheme();
+        if (!TextUtils.isEmpty(text)) {
+            openPost.put("is_scheme", text);
         }
 
         text = config.getUniqueID();

@@ -23,8 +23,9 @@ public class Configuration {
     private static final String KEY_INIT_KEY = "init_key";
     private static final String KEY_ANDROID_ID = "android_id";
     private static final String KEY_LINK_CLICK_IDENTIFIER = "link_click_identifier";
-    private static final String KEY_LINK_WORKER_IDENTIFIER = "link_worker_identifier";
     private static final String KEY_INSTALL_CHANNELS = "install_channels";
+    private static final String KEY_DEEP_LINK_IDENTIFIER = "link_deep_link_identifier";
+    private static final String KEY_SCHEME_IDENTIFIER = "link_scheme";
 
     private static Configuration config;
     private SharedPreferences preference;
@@ -83,20 +84,28 @@ public class Configuration {
         setString(KEY_LINK_CLICK_IDENTIFIER, identifier);
     }
 
-    public String getWorkerId() {
-        return getString(KEY_LINK_WORKER_IDENTIFIER);
-    }
-
-    public void setWorkerId(String identifier) {
-        setString(KEY_LINK_WORKER_IDENTIFIER, identifier);
-    }
-
     public String getInstallChannels() {
         return getString(KEY_INSTALL_CHANNELS);
     }
 
     public void setInstallChannels(String installChannel) {
         setString(KEY_INSTALL_CHANNELS, installChannel);
+    }
+
+    public String getDeepLinkId() {
+        return getString(KEY_DEEP_LINK_IDENTIFIER);
+    }
+
+    public void setDeepLinkId(String identifier) {
+        setString(KEY_DEEP_LINK_IDENTIFIER, identifier);
+    }
+
+    public String getScheme() {
+        return getString(KEY_SCHEME_IDENTIFIER);
+    }
+
+    public void setScheme(String identifier) {
+        setString(KEY_SCHEME_IDENTIFIER, identifier);
     }
 
     private String getString(String key) {

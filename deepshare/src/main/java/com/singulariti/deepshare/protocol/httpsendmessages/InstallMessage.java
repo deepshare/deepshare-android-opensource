@@ -39,10 +39,10 @@ public class InstallMessage extends ServerHttpSendJsonMessage {
             installPost.put("click_id", text);;
         }
 
-        text = config.getWorkerId();
-        config.setWorkerId("");
+        text = config.getDeepLinkId();
+        config.setDeepLinkId("");
         if (!TextUtils.isEmpty(text)) {
-            installPost.put("worker_id", text);;
+            installPost.put("deeplink_id", text);;
         }
 
         text = config.getUniqueID();

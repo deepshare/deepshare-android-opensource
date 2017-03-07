@@ -56,8 +56,11 @@ public class DeepShareImpl {
                 uriHandled = true;
                 config.setClickId(data.getQueryParameter("click_id"));
             }
-            if (data.getQueryParameter("worker_id") != null) {
-
+            if (data.getQueryParameter("deeplink_id") != null) {
+                config.setDeepLinkId(data.getQueryParameter("deeplink_id"));
+            }
+            if (data.getQueryParameter("is_scheme") != null) {
+                config.setScheme(data.getQueryParameter("is_scheme"));
             }
         } else {
             config.setClickId("");
